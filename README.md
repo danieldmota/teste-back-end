@@ -1,8 +1,7 @@
-```markdown
+````markdown
 # 🚀 API Node.js + Express + PostgreSQL com Docker
 
 Este projeto é um exemplo de estrutura backend moderna, utilizando **Node.js**, **Express**, **PostgreSQL** e **Docker Compose** para gerenciar os ambientes de desenvolvimento de forma simples e consistente. Com suporte a variáveis de ambiente via **dotenv** e controle de acesso via **CORS**.
-
 
 ---
 
@@ -18,36 +17,11 @@ Este projeto é um exemplo de estrutura backend moderna, utilizando **Node.js**,
 
 ---
 
-## ⚙️ Estrutura do projeto
-
-```
-
-📦 projeto/
-├── 📁 src/
-│   ├── 📁 config/
-│   │   ├── db.js
-│   ├── 📁 controllers/
-│   │   ├── exemploController.js
-│   ├── 📁 routes/
-│   │   ├── teste-api.js
-│   │   └── teste-db.js
-│   └── server.js
-├── .dockerignore
-├── .env
-├── .gitignore
-├── Dockerfile
-├── docker-compose.yml
-├── package.json
-└── README.md
-
-````
-
----
-
 ## 🧠 Pré-requisitos
 
 Antes de rodar o projeto, instale:
-- **Docker Desktop** (ou Docker Engine)  
+
+- **Docker Desktop** (ou Docker Engine)
 - **Git**
 
 > ⚠️ Você **não precisa instalar Node.js ou PostgreSQL** localmente — o Docker cuida de tudo.
@@ -57,10 +31,11 @@ Antes de rodar o projeto, instale:
 ## 🧰 Configuração do ambiente
 
 1. **Clone o repositório**
-   ```bash
+
+```bash
    git clone https://github.com/seu-usuario/seu-projeto.git
    cd seu-projeto
-````
+```
 
 2. **Crie o arquivo `.env`**
    O `.env` não vai para o Git, então crie um novo com o conteúdo abaixo (usando o link do banco online):
@@ -82,9 +57,9 @@ docker compose up -d
 
 Isso fará o Docker:
 
-* Baixar as imagens necessárias (Node, etc)
-* Construir a imagem do app (`teste-back-end`)
-* Criar e iniciar o container
+- Baixar as imagens necessárias (Node, etc)
+- Construir a imagem do app (`teste-back-end`)
+- Criar e iniciar o container
 
 ---
 
@@ -170,7 +145,7 @@ docker system prune -f
 
 ## 🔐 Segurança e Boas Práticas
 
-* **Nunca** envie o arquivo `.env` para o GitHub.
+- **Nunca** envie o arquivo `.env` para o GitHub.
 
 ---
 
@@ -180,6 +155,7 @@ docker system prune -f
 | ------ | -------------- | -------------------------------------------- |
 | GET    | `/api`         | Retorna mensagem de status da API            |
 | GET    | `/api/exemplo` | Exemplo de rota controlada por um controller |
-| GET    | `/testedb` | Retorna se a conexão foi feita com sucesso |
+| GET    | `/testedb`     | Retorna se a conexão foi feita com sucesso   |
 
 ---
+````
