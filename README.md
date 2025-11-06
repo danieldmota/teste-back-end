@@ -32,8 +32,8 @@ Antes de rodar o projeto, instale:
 
 1. **Clone o repositório**
    ```bash
-   git clone https://github.com/seu-usuario/seu-projeto.git
-   cd seu-projeto
+   git clone https://github.com/danieldmota/teste-back-end.git
+   cd teste-back-end
 
 2. **Crie o arquivo `.env`**
    O `.env` não vai para o Git, então crie um novo com o conteúdo abaixo (usando o link do banco online):
