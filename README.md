@@ -1,8 +1,7 @@
-```markdown
 # 🚀 API Node.js + Express + PostgreSQL com Docker
 
-Este projeto é um exemplo de estrutura backend moderna, utilizando **Node.js**, **Express**, **PostgreSQL** e **Docker Compose** para gerenciar os ambientes de desenvolvimento de forma simples e consistente. Com suporte a variáveis de ambiente via **dotenv** e controle de acesso via **CORS**.
-
+Este projeto é um exemplo de estrutura backend moderna, utilizando **Node.js**, **Express**, **PostgreSQL** e **Docker Compose** para gerenciar os ambientes de desenvolvimento de forma simples e consistente.  
+Com suporte a variáveis de ambiente via **dotenv** e controle de acesso via **CORS**.
 
 ---
 
@@ -21,19 +20,20 @@ Este projeto é um exemplo de estrutura backend moderna, utilizando **Node.js**,
 ## 🧠 Pré-requisitos
 
 Antes de rodar o projeto, instale:
+
 - **Docker Desktop** (ou Docker Engine)  
 - **Git**
 
-> ⚠️ Você **não precisa instalar Node.js ou PostgreSQL** localmente — o Docker cuida de tudo.
+> ⚠️ Você **não precisa instalar Node.js ou PostgreSQL localmente** — o Docker cuida de tudo.
 
 ---
 
 ## 🧰 Configuração do ambiente
 
 1. **Clone o repositório**
+   ```bash
    git clone https://github.com/seu-usuario/seu-projeto.git
    cd seu-projeto
-````
 
 2. **Crie o arquivo `.env`**
    O `.env` não vai para o Git, então crie um novo com o conteúdo abaixo (usando o link do banco online):
