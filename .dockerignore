@@ -1,0 +1,26 @@
+# Ignorar dependências locais (elas serão instaladas dentro do container)
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Ignorar arquivos de configuração do ambiente local
+.env
+
+# Logs e caches
+logs
+*.log
+.cache
+.tmp
+
+# Git
+.git
+.gitignore
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Testes e ferramentas de build locais
+coverage
+.vscode
+.idea
