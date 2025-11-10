@@ -3,9 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import testApi from './routes/teste-api.js';
 import testDbRoutes from "./routes/teste-db.js";
-
-// Importação das rotas específicas
-import us from './routes/users.js';  // Importe a rota '/users' de algum arquivo de rotas
+import userRoutes from './routes/users.js';  // 👈 Importação correta
 
 dotenv.config();
 
@@ -18,9 +16,7 @@ app.use(express.json());
 // Rotas principais
 app.use('/api', testApi);
 app.use('/testedb', testDbRoutes);
-
-// Definindo a rota /users
-app.get('/users', us);  // Ou app.use('/users', us), se us for um middleware
+app.use('/users', userRoutes);  // 👈 Uso correto das rotas
 
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
