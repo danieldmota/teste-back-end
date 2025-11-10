@@ -16,7 +16,7 @@ app.use(express.json());
 // Rotas principais
 app.use('/api', testApi);
 app.use('/testedb', testDbRoutes);
-app.use('/users', userRoutes);  // 👈 Uso correto das rotas
+app.use('/users', userRoutes);  
 
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
