@@ -13,7 +13,7 @@ RUN npm install
 # Copia o restante do código
 COPY . .
 
-# Expõe a porta usada pelo servidor (ajuste se necessário)
+# Expõe a porta usada pelo servidor
 EXPOSE 3000
 
 # Comando padrão para iniciar o servidor
