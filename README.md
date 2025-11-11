@@ -156,3 +156,24 @@ docker system prune -f
 | GET    | `/testedb` | Retorna se a conexão foi feita com sucesso |
 
 ---
+
+## Comandos prisma
+
+**🔄Gere a migração no banco**
+
+Depois que o schema.prisma estiver atualizado, rode:
+```bash
+npx prisma migrate dev --name add_novos_campos
+```
+
+Isso vai:
+Criar uma nova migração (SQL) em prisma/migrations/
+Aplicar as alterações no banco
+Atualizar o cliente Prisma
+
+**Regenerar o cliente Prisma (se precisar)**
+
+Se você mudou apenas o schema e quer atualizar o client sem migrar (ex: introspecção), pode usar:
+```bash
+npx prisma generate
+```
