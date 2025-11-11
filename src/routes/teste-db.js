@@ -1,12 +1,13 @@
 import express from "express";
-import pool from "../config/db.js"; // <-- Certifique-se de ter o arquivo db.js configurado
+import { PrismaClient } from "@prisma/client";
 
+const prisma = new PrismaClient();
 const router = express.Router();
 
 // Rota para testar conexão com o banco
 router.get("/", async (req, res) => {
   try {
-    const result = await pool.query("SELECT NOW()");
+    const result = await prisma.$queryRaw`SELECT NOW()`;
     res.json({
       status: "Conectado ao PostgreSQL!",
       hora_servidor: result.rows[0].now,

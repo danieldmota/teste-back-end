@@ -5,8 +5,8 @@ const router = Router();
 
 // Rotas para usuários
 router.get('/', userController.listarTodos);
-router.get('/cpf/:cpf', userController.buscarPorCpf);     // 👈 Nova rota
-router.get('/login/:login', userController.buscarPorLogin); // 👈 Nova rota
+router.get('/cpf/:cpf', userController.buscarPorCpf);     
+router.get('/login/:login', userController.buscarPorLogin); 
 router.get('/:id', userController.buscarPorId);
 router.post('/', userController.criar);
 router.put('/:id', userController.atualizar);
