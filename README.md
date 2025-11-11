@@ -171,9 +171,20 @@ Criar uma nova migração (SQL) em prisma/migrations/
 Aplicar as alterações no banco
 Atualizar o cliente Prisma
 
+**Atualizar o banco de dados sem criar migração**
+
+```bash
+npx prisma db push
+```
+
 **Regenerar o cliente Prisma (se precisar)**
 
 Se você mudou apenas o schema e quer atualizar o client sem migrar (ex: introspecção), pode usar:
 ```bash
 npx prisma generate
 ```
+🧠 E por que precisa atualizar o client?
+
+Porque toda vez que você muda o schema.prisma (adiciona campos, tabelas, relacionamentos, etc.), o Prisma precisa regerar o código do client pra refletir essas mudanças.
+
+👉 Se você não fizer isso, o Prisma Client não “sabe” das novas tabelas ou colunas.
