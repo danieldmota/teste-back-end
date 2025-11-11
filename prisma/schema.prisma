@@ -22,3 +22,9 @@ model companies {
   cnpj     String  @unique
   criadoEm DateTime @default(now())
 }
+
+model adm{
+  id       Int     @id @default(autoincrement())
+  login     String
+  senha     String  @unique
+}
