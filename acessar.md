@@ -1,6 +1,6 @@
 reiniciar o docker: 
 docker compose restart
-
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 para agilizar: 
 http://localhost:3000/testedb
 http://localhost:3000/api

@@ -6,9 +6,13 @@ WORKDIR /usr/src/app
 
 # Copia os arquivos de configuração primeiro (para cache eficiente)
 COPY package*.json ./
+COPY prisma ./prisma
 
 # Instala dependências
 RUN npm install
+
+# Gera o cliente Prisma
+RUN npx prisma generate
 
 # Copia o restante do código
 COPY . .
