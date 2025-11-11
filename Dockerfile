@@ -6,14 +6,18 @@ WORKDIR /usr/src/app
 
 # Copia os arquivos de configuração primeiro (para cache eficiente)
 COPY package*.json ./
+COPY prisma ./prisma
 
 # Instala dependências
 RUN npm install
 
+# Gera o cliente Prisma
+RUN npx prisma generate
+
 # Copia o restante do código
 COPY . .
 
-# Expõe a porta usada pelo servidor (ajuste se necessário)
+# Expõe a porta usada pelo servidor
 EXPOSE 3000
 
 # Comando padrão para iniciar o servidor

@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import testApi from './routes/teste-api.js';
 import testDbRoutes from "./routes/teste-db.js";
+import userRoutes from './routes/users.js';  // 👈 Importação correta
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 // Rotas principais
 app.use('/api', testApi);
 app.use('/testedb', testDbRoutes);
+app.use('/users', userRoutes);  
 
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
