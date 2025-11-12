@@ -188,3 +188,9 @@ npx prisma generate
 Porque toda vez que você muda o schema.prisma (adiciona campos, tabelas, relacionamentos, etc.), o Prisma precisa regerar o código do client pra refletir essas mudanças.
 
 👉 Se você não fizer isso, o Prisma Client não “sabe” das novas tabelas ou colunas.
+
+**Resetar migration e banco**
+
+```bash
+npx prisma migrate reset
+```
