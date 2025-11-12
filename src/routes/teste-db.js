@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
     const result = await prisma.$queryRaw`SELECT NOW()`;
     res.json({
       status: "Conectado ao PostgreSQL!",
-      hora_servidor: result.rows[0].now,
+      hora: result[0].now
     });
   } catch (error) {
     console.error("Erro ao conectar ao banco:", error.message);
