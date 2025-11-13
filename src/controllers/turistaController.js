@@ -3,15 +3,14 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 const turistaController = {
-  // Listar todos os turistas
+  //Listar todos os turistas
   listarTodos: async (req, res) => {
     try {
-      const turistas = await prisma.turista.findMany({
-        orderBy: {
-          id: 'asc'
-        }
-      });
       
+      const turistas = await prisma.turista.findMany({
+        orderBy: { id: 'asc' }
+      });
+
       res.json({
         success: true,
         data: turistas,
@@ -31,10 +30,12 @@ const turistaController = {
   buscarPorId: async (req, res) => {
     try {
       const { id } = req.params;
+
+      //  Aqui é onde entra o comando mencionado:
       const turista = await prisma.turista.findUnique({
         where: { id: parseInt(id) }
       });
-      
+
       if (!turista) {
         return res.status(404).json({
           success: false,
@@ -56,16 +57,23 @@ const turistaController = {
     }
   },
 
-  // Criar novo turista
+  //Criar novo turista
   criar: async (req, res) => {
     try {
       const { cidade, estado, pais, usuarioId } = req.body;
-      
+
+      if (!usuarioId) {
+        return res.status(400).json({
+          success: false,
+          message: 'usuarioId é obrigatório'
+        });
+      }
+
       const turista = await prisma.turista.create({
         data: {
-          cidade,
-          estado,
-          pais,
+          cidade: cidade || null,
+          estado: estado || null,
+          pais: pais || null,
           usuarioId: parseInt(usuarioId)
         }
       });
@@ -77,6 +85,14 @@ const turistaController = {
       });
     } catch (error) {
       console.error('Erro ao criar turista:', error);
+
+      if (error.code === 'P2003') {
+        return res.status(400).json({
+          success: false,
+          message: 'UsuarioId não existe na tabela de usuários'
+        });
+      }
+
       res.status(500).json({
         success: false,
         message: 'Erro ao criar turista',
@@ -85,20 +101,32 @@ const turistaController = {
     }
   },
 
-  // Atualizar turista
+  //Atualizar turista
   atualizar: async (req, res) => {
     try {
       const { id } = req.params;
       const { cidade, estado, pais, usuarioId } = req.body;
       
-      const turista = await prisma.turista.update({
+      const turistaExistente = await prisma.turista.findUnique({
+        where: { id: parseInt(id) }
+      });
+      
+      if (!turistaExistente) {
+        return res.status(404).json({
+          success: false,
+          message: 'Turista não encontrado'
+        });
+      }
+      
+      const dadosAtualizacao = {};
+      if (cidade !== undefined) dadosAtualizacao.cidade = cidade;
+      if (estado !== undefined) dadosAtualizacao.estado = estado;
+      if (pais !== undefined) dadosAtualizacao.pais = pais;
+      if (usuarioId !== undefined) dadosAtualizacao.usuarioId = parseInt(usuarioId);
+
+      const turista = await prisma.Turista.update({
         where: { id: parseInt(id) },
-        data: {
-          ...(cidade && { cidade }),
-          ...(estado && { estado }),
-          ...(pais && { pais }),
-          ...(usuarioId && { usuarioId: parseInt(usuarioId) })
-        }
+        data: dadosAtualizacao
       });
 
       res.json({
@@ -124,11 +152,11 @@ const turistaController = {
     }
   },
 
-  // Deletar turista
+  //Deletar turista
   deletar: async (req, res) => {
     try {
       const { id } = req.params;
-      
+
       const turista = await prisma.turista.delete({
         where: { id: parseInt(id) }
       });
@@ -140,7 +168,7 @@ const turistaController = {
       });
     } catch (error) {
       console.error('Erro ao deletar turista:', error);
-      
+
       if (error.code === 'P2025') {
         return res.status(404).json({
           success: false,
