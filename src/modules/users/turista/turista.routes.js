@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import turistaController from '../controllers/turistaController.js';
+import { turistaController } from './turista.controller.js';
 
 const router = Router();
 

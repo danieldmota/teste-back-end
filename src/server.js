@@ -5,8 +5,8 @@ import cors from 'cors';
 import testApi from './routes/teste-api.js';
 import testDbRoutes from "./routes/teste-db.js";
 import userRoutes from './routes/users.js';
-
-import turistaRoutes from './routes/turista-routes.js'; 
+import authRoutes from "./modules/auth/auth.routes.js";
+import turistaRoutes from './modules/users/turista/turista.routes.js'; 
 
 dotenv.config();
 
@@ -20,7 +20,8 @@ app.use(express.json());
 app.use('/api', testApi);
 app.use('/testedb', testDbRoutes);
 app.use('/users', userRoutes);
-app.use('/turista', turistaRoutes);
+app.use('/turistas', turistaRoutes);
+app.use("/auth", authRoutes);
 
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);

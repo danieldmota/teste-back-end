@@ -11,43 +11,42 @@ datasource db {
 // 1. USUÁRIOS E PERFIS (BÁSICO)
 // ----------------------------------------------------
 
-model users {
-  id       Int      @id @default(autoincrement())
-  nome     String
-  cpf      String   @unique
-  login    String   @unique
-  senha    String
-  criadoEm DateTime @default(now())
+model tipo_usuario {
+  id      Int      @id @default(autoincrement())
+  nome    String   @unique   // "Turista", "Empreendedor", "Administrador"
+  usuario usuario[]
 }
 
-model TipoUsuario {
-  id   Int    @id @default(autoincrement())
-  nome String
+model usuario {
+  id             Int           @id @default(autoincrement())
+  email          String        @unique
+  senha          String
+  id_tipo_usuario Int
+
+  tipo_usuario   tipo_usuario @relation(fields: [id_tipo_usuario], references: [id])
+
+  turista        turista?
+  empreendedor   empreendedor?
 }
 
-model Turista {
-  id        Int      @id @default(autoincrement())
-  cidade    String?
-  estado    String?
-  pais      String?
-  criadoEm  DateTime @default(now())
-  usuarioId Int
+model turista {
+  id         Int      @id @default(autoincrement())
+  cidade     String?
+  estado     String?
+  pais       String?
+  id_usuario Int      @unique
+
+  usuario    usuario  @relation(fields: [id_usuario], references: [id])
 }
 
-model Administrador {
-  id          Int      @id @default(autoincrement())
-  nivelAcesso String?
-  criadoEm    DateTime @default(now())
-  usuarioId   Int
-}
+model empreendedor {
+  id         Int      @id @default(autoincrement())
+  telefone   String?
+  cpf        String?   @unique
+  status     Boolean   @default(true)
+  id_usuario Int       @unique
 
-model Empreendedor {
-  id          Int      @id @default(autoincrement())
-  cnpj        String?
-  telefone    String?
-  nomeEmpresa String?
-  criadoEm    DateTime @default(now())
-  usuarioId   Int
+  usuario    usuario   @relation(fields: [id_usuario], references: [id])
 }
 
 // ----------------------------------------------------
