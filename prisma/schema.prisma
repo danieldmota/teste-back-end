@@ -7,24 +7,264 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ----------------------------------------------------
+// 1. USUÁRIOS E PERFIS (BÁSICO)
+// ----------------------------------------------------
+
 model users {
-  id       Int     @id @default(autoincrement())
+  id       Int      @id @default(autoincrement())
   nome     String
-  cpf      String  @unique
-  login    String  @unique
+  cpf      String   @unique
+  login    String   @unique
   senha    String
   criadoEm DateTime @default(now())
 }
 
-model companies {
-  id       Int     @id @default(autoincrement())
-  nome     String
-  cnpj     String  @unique
+model TipoUsuario {
+  id   Int    @id @default(autoincrement())
+  nome String
+}
+
+model Turista {
+  id        Int      @id @default(autoincrement())
+  cidade    String?
+  estado    String?
+  pais      String?
+  criadoEm  DateTime @default(now())
+  usuarioId Int
+}
+
+model Administrador {
+  id          Int      @id @default(autoincrement())
+  nivelAcesso String?
+  criadoEm    DateTime @default(now())
+  usuarioId   Int
+}
+
+model Empreendedor {
+  id          Int      @id @default(autoincrement())
+  cnpj        String?
+  telefone    String?
+  nomeEmpresa String?
+  criadoEm    DateTime @default(now())
+  usuarioId   Int
+}
+
+// ----------------------------------------------------
+// 2. PONTOS DE INTERESSE E CATEGORIAS
+// ----------------------------------------------------
+
+model PontoDeInteresse {
+  id                  Int      @id @default(autoincrement())
+  nome                String
+  descricaoCurta      String?
+  descricaoLonga      String?
+  emailContato        String?
+  telefone            String?
+  site                String?
+  facebook            String?
+  instagram           String?
+  status              Boolean  @default(true)
+  criadoEm            DateTime @default(now())
+  atualizadoEm        DateTime @updatedAt
+  usuarioId           Int
+  empreendedorId      Int?
+  categoriaId         Int
+}
+
+model Categoria {
+  id        Int      @id @default(autoincrement())
+  nome      String
+  descricao String?
+  criadoEm  DateTime @default(now())
+}
+
+// ----------------------------------------------------
+// 3. ENDEREÇOS E IMAGENS
+// ----------------------------------------------------
+
+model Endereco {
+  id         Int    @id @default(autoincrement())
+  cep        String
+  numero     String
+  logradouro String
+  bairro     String
+  cidade     String
+  estado     String
+  complemento String?
+  referencia String?
+  pontoInteresseId Int?
+}
+
+model Imagem {
+  id             Int      @id @default(autoincrement())
+  linkImagem     String
+  descricao      String?
+  ordem          Int?
+  principal      Boolean  @default(false)
+  criadoEm       DateTime @default(now())
+  pontoInteresseId Int
+}
+
+// ----------------------------------------------------
+// 4. ESPECIALIZAÇÕES DOS PONTOS
+// ----------------------------------------------------
+
+model Hospedagem {
+  id              Int      @id @default(autoincrement())
+  tipoQuarto      String?
+  checkin         String?
+  checkout        String?
+  cafeManha       Boolean  @default(false)
+  wifiGratis      Boolean  @default(false)
+  estacionamento  Boolean  @default(false)
+  pontoInteresseId Int
+}
+
+model Restaurante {
+  id                  Int    @id @default(autoincrement())
+  tipoCulinaria       String?
+  faixaPreco          String?
+  horarioFuncionamento String?
+  capacidade          Int?
+  delivery            Boolean @default(false)
+  pontoInteresseId    Int
+}
+
+model AgenciaTurismo {
+  id                      Int    @id @default(autoincrement())
+  servicosOferecidos      String?
+  idiomasAtendidos        String?
+  certificacoes           String?
+  anosExperiencia         Int?
+  destinosAtuacao         String?
+  pontoInteresseId        Int
+}
+
+// ----------------------------------------------------
+// 5. CATEGORIAS ESPECÍFICAS
+// ----------------------------------------------------
+
+model CategoriaHospedagem {
+  id   Int    @id @default(autoincrement())
+  nome String
+  descricao String?
+}
+
+model CategoriaRestaurante {
+  id   Int    @id @default(autoincrement())
+  nome String
+  descricao String?
+}
+
+model CategoriaAgencia {
+  id   Int    @id @default(autoincrement())
+  nome String
+  descricao String?
+}
+
+// ----------------------------------------------------
+// 6. EVENTOS E ATIVIDADES
+// ----------------------------------------------------
+
+model Evento {
+  id              Int      @id @default(autoincrement())
+  nome            String
+  descricaoCurta  String?
+  descricaoLonga  String?
+  dataInicio      DateTime
+  dataFim         DateTime
+  horario         String?
+  tipoEvento      String?
+  status          String?
+  capacidadeMaxima Int?
+  precoIngresso   Float?
+  criadoEm        DateTime @default(now())
+  usuarioId       Int
+  enderecoId      Int
+  imagemId        Int
+}
+
+model AtividadeEvento {
+  id                      Int    @id @default(autoincrement())
+  nivelAtividade          String?
+  foraAtividade           Boolean?
+  ritmoViagem             String?
+  transporte              String?
+  preferenciasAlimentares String?
+  eventoId                Int
+}
+
+// ----------------------------------------------------
+// 7. TAGS
+// ----------------------------------------------------
+
+model Tag {
+  id      Int      @id @default(autoincrement())
+  nome    String
+  tipo    String?
   criadoEm DateTime @default(now())
 }
 
-model adm{
-  id       Int     @id @default(autoincrement())
-  login     String
-  senha     String  @unique
+model TagPontoDeInteresse {
+  id        Int @id @default(autoincrement())
+  pontoInteresseId Int
+  tagId     Int
+}
+
+model TagEvento {
+  id        Int @id @default(autoincrement())
+  eventoId  Int
+  tagId     Int
+}
+
+// ----------------------------------------------------
+// 8. AÇÕES DOS USUÁRIOS
+// ----------------------------------------------------
+
+model Avaliacao {
+  id        Int      @id @default(autoincrement())
+  avaliacao Int
+  comentario String?
+  criadoEm  DateTime @default(now())
+  turistaId Int
+  pontoInteresseId Int
+}
+
+model Comentario {
+  id               Int      @id @default(autoincrement())
+  descricao        String
+  reportado        Boolean  @default(false)
+  criadoEm         DateTime @default(now())
+  atualizadoEm     DateTime @updatedAt
+  usuarioId        Int
+  pontoInteresseId Int
+}
+
+model Denuncia {
+  id          Int      @id @default(autoincrement())
+  descricao   String
+  tipo        String?
+  status      String   @default("pendente")
+  criadoEm    DateTime @default(now())
+  usuarioId   Int
+  comentarioId Int?
+  pontoInteresseId Int?
+}
+
+model Favorito {
+  id        Int      @id @default(autoincrement())
+  criadoEm  DateTime @default(now())
+  turistaId Int
+  pontoInteresseId Int
+}
+
+model Reserva {
+  id           Int      @id @default(autoincrement())
+  numPessoas   Int
+  dataReserva  DateTime @default(now())
+  status       String   @default("confirmada")
+  observacoes  String?
+  turistaId    Int
+  eventoId     Int
 }
