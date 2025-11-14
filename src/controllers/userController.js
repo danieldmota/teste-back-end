@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
-
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
+import { JWT_CONFIG } from '../config/jwt.js';
 const userController = {
   // Listar todos os usuários
   listarTodos: async (req, res) => {
